@@ -1,6 +1,6 @@
 ####################################################
 #RNA-seq Tools
-#Dockerfile to use TopHat 2.1.1 with bowtie2-2.3.2
+#Dockerfile to build a container with bowtie2-2.3.2
 #Ubuntu 14.04
 ####################################################
 #Build the image based on Ubuntu
