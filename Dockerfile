@@ -17,16 +17,16 @@ RUN apt-get update && apt-get install --yes wget unzip python
 
 #Download Bowtie2
 WORKDIR /bin
-RUN wget --default-page=bowtie2-2.3.2-linux-x86_64.zip http://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.2/bowtie2-2.3.2-linux-x86_64.zip/
+RUN wget --default-page=bowtie2-2.3.4.1-linux-x86_64.zip http://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.4.1/bowtie2-2.3.4.1-linux-x86_64.zip/
 
 #Unzip Bowtie2
-RUN unzip bowtie2-2.3.2-linux-x86_64.zip
+RUN unzip bowtie2-2.3.4.1-linux-x86_64.zip
 
 #Remove compressed files
-RUN rm bowtie2-2.3.2-linux-x86_64.zip
+RUN rm bowtie2-2.3.4.1-linux-x86_64.zip
 
 #Add bowtie2 to the path variable
-ENV PATH $PATH:/bin/bowtie2-2.3.2
+ENV PATH $PATH:/bin/bowtie2-2.3.4.1-linux-x86_64
 
 #Remove no installed packages wget and unzip
 RUN apt-get purge --yes wget unzip
