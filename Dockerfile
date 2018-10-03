@@ -4,7 +4,7 @@
 #Ubuntu 14.04
 ####################################################
 #Build the image based on Ubuntu
-FROM ubuntu:14.04
+FROM ubuntu:latest
 
 #Maintainer and author
 MAINTAINER Magdalena Arnal <marnal@imim.es>
