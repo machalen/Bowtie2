@@ -10,26 +10,25 @@ FROM ubuntu:latest
 MAINTAINER Magdalena Arnal <marnal@imim.es>
 
 #Install required libraries in ubuntu
-RUN apt-get update && apt-get -y install libtbb-dev
+RUN apt-get update && apt-get install --yes build-essential gcc-multilib apt-utils zlib1g-dev git
         
-#Install/update wget, unzip, python in ubuntu
-RUN apt-get update && apt-get install --yes wget unzip python
+# Install BOWTIE2
+WORKDIR /tmp
+RUN git clone https://github.com/BenLangmead/bowtie2.git
+WORKDIR /tmp/bowtie2
+RUN git checkout v2.2.4
 
-#Download Bowtie2
-WORKDIR /bin
-RUN wget --default-page=bowtie2-2.3.4.3-linux-x86_64.zip http://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.4.3/bowtie2-2.3.4.3-linux-x86_64.zip/
+# Patch Makefile
+RUN sed -i 's/ifneq (,$(findstring 13,$(shell uname -r)))/ifneq (,$(findstring Darwin 13,$(shell uname -sr)))/' Makefile
+RUN sed -i 's/RELEASE_FLAGS = -O3 -m64 $(SSE_FLAG) -funroll-loops -g3/RELEASE_FLAGS = -O3 -m64 $(SSE_FLAG) -funroll-loops -g3 -static/' Makefile
 
-#Unzip Bowtie2
-RUN unzip bowtie2-2.3.4.3-linux-x86_64.zip
+# Compile
+RUN make
+RUN cp -p bowtie2 bowtie2-* /usr/local/bin
 
-#Remove compressed files
-RUN rm bowtie2-2.3.4.3-linux-x86_64.zip
+# Cleanup
+RUN rm -rf /tmp/bowtie2
+RUN apt-get clean
+RUN apt-get remove --yes --purge build-essential gcc-multilib apt-utils zlib1g-dev vim git
 
-#Add bowtie2 to the path variable
-ENV PATH $PATH:/bin/bowtie2-2.3.4.3-linux-x86_64
-
-#Remove no installed packages wget and unzip
-RUN apt-get purge --yes wget unzip
-
-#Set User and default Working Directory
 WORKDIR /
