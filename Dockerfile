@@ -26,6 +26,22 @@ RUN sed -i 's/RELEASE_FLAGS = -O3 -m64 $(SSE_FLAG) -funroll-loops -g3/RELEASE_FL
 RUN make
 RUN cp -p bowtie2 bowtie2-* /usr/local/bin
 
+#Install required libraries in ubuntu for samtools
+RUN apt-get update -y && apt-get install -y \
+    wget unzip bzip2 g++ make ncurses-dev python default-jdk default-jre libncurses5-dev \
+    libbz2-dev liblzma-dev
+#Set wokingDir in /bin
+WORKDIR /bin
+
+#Install and Configure samtools
+RUN wget http://github.com/samtools/samtools/releases/download/1.5/samtools-1.5.tar.bz2
+RUN tar --bzip2 -xf samtools-1.5.tar.bz2
+WORKDIR /bin/samtools-1.5
+RUN ./configure
+RUN make
+RUN rm /bin/samtools-1.5.tar.bz2
+ENV PATH $PATH:/bin/samtools-1.5
+
 # Cleanup
 RUN rm -rf /tmp/bowtie2
 RUN apt-get clean
