@@ -1,16 +1,16 @@
 ####################################################
 #RNA-seq Tools
 #Dockerfile to build a container with bowtie2-2.3.2
-#Ubuntu 14.04
+#Ubuntu Focal
 ####################################################
 #Build the image based on Ubuntu
-FROM ubuntu:latest
+FROM ubuntu:focal
 
 #Maintainer and author
-MAINTAINER Magdalena Arnal <marnal@imim.es>
+MAINTAINER Magdalena Arnal <magdalena.arnalsegura@iit.it>
 
 #Install required libraries in ubuntu
-RUN apt-get update && apt-get install --yes build-essential gcc-multilib apt-utils zlib1g-dev git perl gzip
+RUN apt-get update && apt-get install --yes build-essential gcc-multilib apt-utils zlib1g-dev libbz2-dev git perl gzip
         
 # Install BOWTIE2
 WORKDIR /tmp
@@ -28,7 +28,7 @@ RUN cp -p bowtie2 bowtie2-* /usr/local/bin
 
 #Install required libraries in ubuntu for samtools
 RUN apt-get update -y && apt-get install -y \
-    wget unzip bzip2 g++ make ncurses-dev libncurses5-dev libbz2-dev liblzma-dev
+    wget unzip bzip2 g++ make ncurses-dev libncurses5-dev libbz2-dev liblzma-dev libssl-dev libcurl4-openssl-dev
 #Set wokingDir in /bin
 WORKDIR /bin
 
