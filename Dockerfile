@@ -28,8 +28,7 @@ RUN cp -p bowtie2 bowtie2-* /usr/local/bin
 
 #Install required libraries in ubuntu for samtools
 RUN apt-get update -y && apt-get install -y \
-    wget unzip bzip2 g++ make ncurses-dev python default-jdk default-jre libncurses5-dev \
-    libbz2-dev liblzma-dev
+    wget unzip bzip2 g++ make ncurses-dev libncurses5-dev libbz2-dev liblzma-dev
 #Set wokingDir in /bin
 WORKDIR /bin
 
