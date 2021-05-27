@@ -10,13 +10,13 @@ FROM ubuntu:latest
 MAINTAINER Magdalena Arnal <marnal@imim.es>
 
 #Install required libraries in ubuntu
-RUN apt-get update && apt-get install --yes build-essential gcc-multilib apt-utils zlib1g-dev git
+RUN apt-get update && apt-get install --yes build-essential gcc-multilib apt-utils zlib1g-dev git perl gzip
         
 # Install BOWTIE2
 WORKDIR /tmp
 RUN git clone https://github.com/BenLangmead/bowtie2.git
 WORKDIR /tmp/bowtie2
-RUN git checkout v2.2.4
+RUN git checkout v2.4.4
 
 # Patch Makefile
 RUN sed -i 's/ifneq (,$(findstring 13,$(shell uname -r)))/ifneq (,$(findstring Darwin 13,$(shell uname -sr)))/' Makefile
