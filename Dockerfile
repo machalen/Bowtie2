@@ -10,7 +10,12 @@ FROM ubuntu:focal
 MAINTAINER Magdalena Arnal <magdalena.arnalsegura@iit.it>
 
 #Install required libraries in ubuntu
-RUN apt-get update && apt-get install --yes build-essential gcc-multilib apt-utils zlib1g-dev libbz2-dev git perl gzip
+RUN apt-get update && apt-get install --yes build-essential gcc-multilib apt-utils zlib1g-dev \
+libbz2-dev git perl gzip ncurses-dev libncurses5-dev libbz2-dev \
+liblzma-dev libssl-dev libcurl4-openssl-dev libgdbm-dev libnss3-dev libreadline-dev libffi-dev wget
+
+#Install python3
+RUN apt-get update && apt-get install --yes python3
         
 # Install BOWTIE2
 WORKDIR /tmp
@@ -27,8 +32,7 @@ RUN make
 RUN cp -p bowtie2 bowtie2-* /usr/local/bin
 
 #Install required libraries in ubuntu for samtools
-RUN apt-get update -y && apt-get install -y \
-    wget unzip bzip2 g++ make ncurses-dev libncurses5-dev libbz2-dev liblzma-dev libssl-dev libcurl4-openssl-dev
+RUN apt-get update -y && apt-get install -y unzip bzip2 g++
 #Set wokingDir in /bin
 WORKDIR /bin
 
