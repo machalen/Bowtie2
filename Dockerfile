@@ -6,8 +6,8 @@
 #Build the image based on Ubuntu
 FROM ubuntu:focal
 
-#Maintainer and author
-MAINTAINER Magdalena Arnal <magdalena.arnalsegura@iit.it>
+#Maintainer and author is:
+MAINTAINER Magdalena Arnal <marnal@peptomyc.com>
 
 #Install required libraries in ubuntu
 RUN apt-get update && apt-get install --yes build-essential gcc-multilib apt-utils zlib1g-dev \
